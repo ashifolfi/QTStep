@@ -1,27 +1,27 @@
 /***************************************************************************
- * Copyright (c) 2015 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
- * Copyright (c) 2013 Abdurrahman AVCI <abdurrahmanavci@gmail.com
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
- * OR OTHER DEALINGS IN THE SOFTWARE.
- *
- ***************************************************************************/
+* Copyright (c) 2015 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+* Copyright (c) 2013 Abdurrahman AVCI <abdurrahmanavci@gmail.com
+*
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the "Software"), to deal in the Software without restriction,
+* including without limitation the rights to use, copy, modify, merge,
+* publish, distribute, sublicense, and/or sell copies of the Software,
+* and to permit persons to whom the Software is furnished to do so,
+* subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+* OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+* ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+* OR OTHER DEALINGS IN THE SOFTWARE.
+*
+***************************************************************************/
 
 import QtQuick
 import QtQuick.Controls
@@ -30,63 +30,63 @@ import QtQuick.Layouts 1.3
 import SddmComponents 2.0
 
 Rectangle {
-	id: container
-	width: 1024
-	height: 768
-
-	color: "#000000"
-
-	// 	Use this to control all font sizes (also affects icons and overall size of the greeter)
+    id: container
+    width: 1024
+    height: 768
+    
+    color: "#000000"
+	
+// 	Use this to control all font sizes (also affects icons and overall size of the greeter)
 	property double scalingFactor: 1
 
-	LayoutMirroring.enabled: Qt.locale().textDirection == Qt.RightToLeft
-	LayoutMirroring.childrenInherit: true
+    LayoutMirroring.enabled: Qt.locale().textDirection == Qt.RightToLeft
+    LayoutMirroring.childrenInherit: true
 
-	property int sessionIndex: session.index
+    property int sessionIndex: session.index
 
-	TextConstants { id: textConstants }
+    TextConstants { id: textConstants }
 
-	Connections {
-		target: sddm
-		onLoginSucceeded: {
-		}
+    Connections {
+        target: sddm
+        onLoginSucceeded: {
+        }
 
-		onLoginFailed: {
+        onLoginFailed: {
 			message.text = textConstants.loginFailed;
 			passwd_entry.text = "";
-		}
-	}
+        }
+    }
 
-	Background {
-		anchors.fill: parent
-		source: config.background
-		fillMode: Image.PreserveAspectCrop
-		onStatusChanged: {
-			if (status == Image.Error && source != config.defaultBackground) {
-				source = config.defaultBackground
-			}
-		}
+    Background {
+        anchors.fill: parent
+        source: config.background
+        fillMode: Image.PreserveAspectCrop
+        onStatusChanged: {
+            if (status == Image.Error && source != config.defaultBackground) {
+                source = config.defaultBackground
+            }
+        }
 
-		MouseArea {
-			anchors.fill: parent
-			onClicked: {
-				listView.focus = true;
-			}
-		}
-	}
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                listView.focus = true;
+            }
+        }
+    }
 
-	Rectangle {
+    Rectangle {
 		anchors.fill: parent
 		color: "transparent"
 		//visible: primaryScreen
-
+		
 		Rectangle {
 			id: "greeter"
-			// 			%2 ensures even numbers - odd numbers here causes rendering ugliness in children
+// 			%2 ensures even numbers - odd numbers here causes rendering ugliness in children
 			height: footer.height * 3 + 120 - (footer.height * 3 + 120) % 2
 			width: height * 16/9 - (height * 16/9) % 2
 			anchors.centerIn: parent
-
+			
 			BorderImage {
 				anchors.fill: parent
 				border.left: 3
@@ -96,7 +96,7 @@ Rectangle {
 				smooth: false
 				source: "greeter.svg"
 			}
-
+			
 			ColumnLayout {
 				anchors.fill: parent
 				anchors.leftMargin: 3
@@ -255,20 +255,20 @@ Rectangle {
 						font.pixelSize: 57 * container.scalingFactor
 					}
 				}
-
+				
 				Image {
 					height: 2
 					Layout.fillWidth: true
 					source: "separator.svg"
 				}
-
+				
 				GridLayout {
 					Layout.leftMargin: 16
 					Layout.rightMargin: 16
 					Layout.topMargin: 8
 					Layout.bottomMargin: 8
 					columns: 2
-
+					
 					Label {
 						Layout.alignment: Qt.AlignRight
 						text: textConstants.userName
@@ -276,7 +276,7 @@ Rectangle {
 						font.pixelSize: 19 * container.scalingFactor
 						color: "#101010"
 					}
-
+					
 					TextField {
 						id: user_entry
 						text: userModel.lastUser
@@ -295,7 +295,7 @@ Rectangle {
 							: "entry.svg"
 						}
 					}
-
+					
 					Label {
 						Layout.alignment: Qt.AlignRight
 						text: textConstants.password
@@ -303,7 +303,7 @@ Rectangle {
 						font.pixelSize: 19 * container.scalingFactor
 						color: "#101010"
 					}
-
+					
 					TextField {
 						id: passwd_entry
 						echoMode: TextInput.Password
@@ -329,29 +329,29 @@ Rectangle {
 						}
 					}
 				}
-
+				
 				Image {
 					height: 2
 					Layout.fillWidth: true
 					source: "separator.svg"
 				}
-
+				
 				RowLayout {
 					id: footer
 					Layout.alignment: Qt.AlignBottom
 					Layout.fillWidth: true
 					Layout.margins: 16
-
-					// 					ComboBox {
-					// 						model: sessionModel
-					// 						index: sessionModel.lastIndex
-					// 					}
-
+					
+// 					ComboBox {
+// 						model: sessionModel
+// 						index: sessionModel.lastIndex
+// 					}
+					
 					ToolButton {
 						Layout.alignment: Qt.AlignBottom
 						id: sessionbutton
 						property int currentIndex: -1
-
+						
 						contentItem: RowLayout {
 							Label {
 								Layout.fillWidth: true
@@ -377,7 +377,7 @@ Rectangle {
 							: "button.svg"
 						}
 						rightPadding: 7
-
+						
 						Component.onCompleted: {
 							currentIndex = sessionModel.lastIndex
 						}
@@ -391,7 +391,7 @@ Rectangle {
 								sessionmenu.dismiss()
 							}
 						}
-
+						
 						QQC.Menu {
 							id: sessionmenu
 							Instantiator {
@@ -408,7 +408,7 @@ Rectangle {
 							}
 						}
 					}
-
+					
 					Rectangle {
 						Layout.fillWidth: true
 						color: "transparent"
@@ -421,7 +421,7 @@ Rectangle {
 							color: "#810000"
 						}
 					}
-
+					
 					ToolButton {
 						id: suspend_button
 						visible: sddm.canSuspend
@@ -460,7 +460,7 @@ Rectangle {
 						}
 						onClicked: sddm.suspend()
 					}
-
+					
 					ToolButton {
 						id: reboot_button
 						enabled: sddm.canReboot
@@ -499,7 +499,7 @@ Rectangle {
 						}
 						onClicked: sddm.reboot()
 					}
-
+					
 					ToolButton {
 						id: shutdown_button
 						enabled: sddm.canPowerOff
@@ -541,9 +541,9 @@ Rectangle {
 				}
 			}
 		}
-	}
-
-	Component.onCompleted: {
+    }
+    
+    Component.onCompleted: {
 		if (user_entry.text === "")
 			user_entry.focus = true;
 		else
